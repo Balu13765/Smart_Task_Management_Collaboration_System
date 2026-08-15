@@ -1,0 +1,3 @@
+package com.taskflow.controller;
+import com.taskflow.model.Comment; import com.taskflow.repository.CommentRepository; import lombok.RequiredArgsConstructor; import org.springframework.web.bind.annotation.*; import java.time.LocalDateTime; import java.util.List;
+@RestController @RequestMapping("/api/comments") @RequiredArgsConstructor public class CommentController{private final CommentRepository repo; @GetMapping("/task/{id}") public List<Comment> list(@PathVariable Long id){return repo.findByTaskIdOrderByCreatedAtAsc(id);} @PostMapping public Comment add(@RequestBody Comment c){c.setCreatedAt(LocalDateTime.now());return repo.save(c);}}
